@@ -2,10 +2,10 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
-import lawyerRoutes from "./routes/lawyerRoutes";
-import journalRoutes from "./routes/journalRoutes";
-import videoRoutes from "./routes/videoRoutes";
-import adminRoutes from "./routes/adminRoutes"; 
+import lawyerRoutes from "./routes/lawyerRoutes.js";
+import journalRoutes from "./routes/journalRoutes.js";
+import videoRoutes from "./routes/videoRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js"; 
 
 dotenv.config();
 
