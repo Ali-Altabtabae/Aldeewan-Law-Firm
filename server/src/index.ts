@@ -3,9 +3,10 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import lawyerRoutes from "./routes/lawyerRoutes";
-import journalRoutes from "./routes/journalRoutes.js";
-import videoRoutes from "./routes/videoRoutes.js";
-import adminRoutes from "./routes/adminRoutes.js"; 
+import journalRoutes from "./routes/journalRoutes";
+import videoRoutes from "./routes/videoRoutes";
+import adminRoutes from "./routes/adminRoutes"; 
+import { Request, Response } from "express";
 
 dotenv.config();
 
@@ -25,7 +26,7 @@ mongoose.connect(process.env.MONGO_URI || "mongodb://localhost:27017/lawfirm")
   .catch(err => console.error("MongoDB connection error:", err));
 
 // sample route
-app.get("/", (req, res) => {
+app.get("/", (req: Request, res: Response) => {
   res.send("Law Firm API is running...");
 });
 
