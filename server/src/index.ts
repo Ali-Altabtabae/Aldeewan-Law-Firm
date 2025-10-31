@@ -6,7 +6,6 @@ import lawyerRoutes from "./routes/lawyerRoutes";
 import journalRoutes from "./routes/journalRoutes";
 import videoRoutes from "./routes/videoRoutes";
 import adminRoutes from "./routes/adminRoutes"; 
-import { Request, Response } from "express";
 
 dotenv.config();
 
@@ -26,9 +25,10 @@ mongoose.connect(process.env.MONGO_URI || "mongodb://localhost:27017/lawfirm")
   .catch(err => console.error("MongoDB connection error:", err));
 
 // sample route
-app.get("/", (req: Request, res: Response) => {
+app.get("/", (req: any, res: any) => {
   res.send("Law Firm API is running...");
 });
+
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
