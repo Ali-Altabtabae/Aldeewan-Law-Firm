@@ -27,14 +27,6 @@ const LawyerProfile = () => {
       .finally(() => setLoading(false));
   }, [id]);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p>Loading...</p>
-      </div>
-    );
-  }
-
   if (!lawyer) {
     return (
       <div className="min-h-screen bg-background">

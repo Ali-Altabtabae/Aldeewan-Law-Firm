@@ -2,12 +2,13 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Briefcase, Users, Scale, Shield } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { useEffect, useState } from "react";
 import { getLawyers } from "@/api/lawyerApi";
 import { Lawyer } from "@/types/Lawyer";
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { Badge } from "@/components/ui/badge";
 
 const Home = () => {
   const { language, t } = useLanguage();
@@ -22,13 +23,7 @@ useEffect(() => {
     .finally(() => setLoading(false));
 }, []);
 
-if (loading) {
-  return (
-    <div className="min-h-screen flex items-center justify-center">
-      <p>Loading...</p>
-    </div>
-  );
-}
+
 
 
   const practiceAreas = [
@@ -131,31 +126,45 @@ if (loading) {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {lawyers.slice(0, 3).map((lawyer) => (
-              <Card 
-                key={lawyer._id} 
-                className="overflow-hidden hover:shadow-hover transition-all duration-300 group"
-              >
-                <div className="aspect-square overflow-hidden">
-                  <img 
-                    src={lawyer.image_url} 
-                    alt={language === 'en' ? lawyer.name_en : lawyer.name_ar}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
+              <Card
+              key={lawyer._id}
+              className="overflow-hidden border-2 hover:border-accent hover:shadow-hover transition-all duration-300 group flex flex-col h-full"
+            >
+              <div className="w-full h-56 sm:h-64 md:h-72 overflow-hidden mb-2">
+                <img
+                  src={lawyer.image_url}
+                  alt={language === "en" ? lawyer.name_en : lawyer.name_ar}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+              </div>
+              <CardContent className="p-4 sm:p-5">
+                <h2 className="font-serif text-2xl font-semibold mb-2 text-primary text-center">
+                  {language === "en" ? lawyer.name_en : lawyer.name_ar}
+                </h2>
+                <p className="text-accent font-medium mb-2 text-center">
+                  {language === "en" ? lawyer.title_en : lawyer.title_ar}
+                </p>
+                <div className="flex flex-wrap gap-2 mb-1 justify-center">
+                  {(language === "en"
+                    ? lawyer.education_en
+                    : lawyer.education_ar
+                  )
+                    .slice(0, 3)
+                    .map((education, index) => (
+                      <Badge key={index} variant="outline">
+                        {education}
+                      </Badge>
+                    ))}
                 </div>
-                <CardContent className="p-6">
-                  <h3 className="font-serif text-xl font-semibold mb-2 text-primary">
-                    {language === 'en' ? lawyer.name_en : lawyer.name_ar}
-                  </h3>
-                  <p className="text-accent font-medium mb-4">
-                    {language === 'en' ? lawyer.title_en : lawyer.title_ar}
-                  </p>
-                  <Link to={`/lawyers/${lawyer._id}`}>
-                    <Button variant="outline" className="w-full border-primary hover:bg-primary hover:text-primary-foreground">
-                      {t('lawyers.view')}
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
+              </CardContent>
+              <CardFooter className="mt-auto flex justify-center gap-3 border-t border-border pt-4">
+                <Link to={`/lawyers/${lawyer._id}`}>
+                  <Button variant="outline" className="w-full border-primary hover:bg-primary hover:text-primary-foreground">
+                    {t("lawyers.view")}
+                  </Button>
+                </Link>
+              </CardFooter>
+            </Card>
             ))}
           </div>
           <div className="text-center mt-12">

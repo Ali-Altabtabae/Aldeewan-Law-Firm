@@ -20,14 +20,6 @@ const Videos = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p>Loading...</p>
-      </div>
-    );
-  }
-
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString(
       language === "en" ? "en-US" : "ar-AE",

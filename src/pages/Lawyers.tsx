@@ -22,14 +22,6 @@ const Lawyers = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p>Loading...</p>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
       <Navbar />
